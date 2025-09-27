@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ARPoultry - Marker Based</title>
+    <meta name="description" content="ARPoultry - An interactive WebAR training tool for backyard poultry farming.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style='margin : 0px; overflow: hidden;'>
+    <!-- Main App Container -->
+    <div id="app-container">
+        <!-- AR Scene -->
+        <div id="ar-scene-container">
+            <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+
+            <!-- Chicken Marker -->
+            <a-marker type='pattern' url='markers/pattern-Chicken.patt'>
+                <a-entity
+                    id="chicken-model"
+                    gltf-model="models/chicken.glb"
+                    scale="0.8 0.8 0.8"
+                    position="0 0 0"
+                    rotation="-90 0 0">
+                    <!-- Hotspot for the chicken -->
+                    <a-sphere id="chicken-hotspot" class="hotspot" position="0 2 0" radius="0.1" material="color: #33FF57; opacity: 0.8"></a-sphere>
+                    <a-box position="1 0 0" material="color: red"></a-box>
+                </a-entity>
+            </a-marker>
+
+            <!-- Water Container Marker -->
+            <a-marker type='pattern' url='markers/pattern-Water container.patt'>
+                <a-entity
+                    id="water-model"
+                    gltf-model="models/water_container.glb"
+                    scale="0.8 0.8 0.8"
+                    position="0 0 0"
+                    rotation="-90 0 0">
+                    <!-- Hotspot for the water container -->
+                    <a-sphere id="water-hotspot" class="hotspot" position="0 2 0" radius="0.1" material="color: #3357FF; opacity: 0.8"></a-sphere>
+                </a-entity>
+            </a-marker>
+
+            <!-- Coop Marker -->
+            <a-marker type='pattern' url='markers/pattern-coop.patt'>
+                <a-entity
+                    id="coop-model"
+                    gltf-model="models/coop.glb"
+                    scale="0.1 0.1 0.1"
+                    position="0 0 0"
+                    rotation="-90 0 0">
+                    <!-- Hotspot for the coop -->
+                    <a-sphere id="housing-hotspot" class="hotspot" position="0 1 0" radius="0.5" material="color: #FF5733; opacity: 0.8"></a-sphere>
+                </a-entity>
+            </a-marker>
+
+            <!-- Feeder Marker -->
+            <a-marker type='pattern' url='markers/pattern-feeder.patt'>
+                <a-entity
+                    id="feeder-model"
+                    gltf-model="models/feeder.glb"
+                    scale="0.4 0.4 0.4"
+                    position="0 0 0"
+                    rotation="-90 0 0">
+                    <!-- Hotspot for the feeder -->
+                    <a-sphere id="feed-hotspot" class="hotspot" position="0 1 0" radius="0.5" material="color: #FFFF33; opacity: 0.8"></a-sphere>
+                </a-entity>
+            </a-marker>
+
+
+
+            <a-entity camera cursor="rayOrigin: mouse"></a-entity>
+        </a-scene>
+        </div>
+
+        <!-- UI Overlays -->
+        <div id="progress-tracker" class="hidden">
+            <p>Modules Completed: <span id="modules-completed">0</span>/4 | Questions Answered: <span id="questions-answered">0</span>/20</p>
+        </div>
+        <div id="info-panel" class="overlay-panel hidden">
+            <h2 id="info-title"></h2>
+            <div id="info-slides"></div>
+            <div id="quiz"></div>
+            <button id="close-panel">Close</button>
+        </div>
+        <div id="completion-screen" class="overlay-panel hidden">
+            <h2>🎉 Congratulations! 🎉</h2>
+            <p>You have completed the ARPoultry training.</p>
+            <div id="final-scores"></div>
+            <p>Total Score: <span id="total-score"></span></p>
+            <button id="restart-tour">Restart Tour</button>
+        </div>
+    </div>
+
+    <!-- Fallback Content (initially hidden) -->
+    <div id="fallback-content" class="overlay-panel hidden">
+        <h2>AR Not Supported</h2>
+        <p>Your browser does not support Augmented Reality. You can still access the training modules below:</p>
+        <div id="fallback-modules">
+            <!-- Module buttons will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Start Screen Overlay -->
+    <div id="start-screen" class="overlay-panel">
+        <h2>Welcome to ARPoultry!</h2>
+        <p>Learn the basics of backyard poultry farming through Augmented Reality.</p>
+        <div class="input-group">
+            <label for="userName">Name (Optional):</label>
+            <input type="text" id="userName" placeholder="Enter your name">
+        </div>
+        <div class="input-group">
+            <label for="userEmail">Email (Optional):</label>
+            <input type="email" id="userEmail" placeholder="Enter your email">
+        </div>
+        <div class="input-group">
+            <label for="userLocation">Barangay/Location (Optional):</label>
+            <input type="text" id="userLocation" placeholder="Enter your location">
+        </div>
+        <button id="start-tour-button">Start Tour</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
